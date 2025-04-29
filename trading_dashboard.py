@@ -426,8 +426,10 @@ def show_portfolio_correlation(df, correlation_data, diversification_score, risk
     """
     st.header("Portfolio Correlation Analysis")
     
-    st.markdown("""    
-    Portfolio correlation measures how different assets move in relation to each other.
+    st.markdown("""
+    ### What is Portfolio Correlation?
+    
+    Portfolio correlation measures how your different assets move in relation to each other.
     Low correlations between assets improve diversification and can significantly reduce 
     overall portfolio risk. This analysis helps identify both concentration risks and 
     diversification opportunities.
@@ -506,7 +508,7 @@ def show_portfolio_correlation(df, correlation_data, diversification_score, risk
             - **Blue cells (negative values)**: Assets move in opposite directions
             - **White cells (values near zero)**: Assets move independently
             
-            Note: A well-diversified portfolio typically has many light-colored or blue cells.
+            A well-diversified portfolio typically has many light-colored or blue cells.
             """)
             
             # Find highly correlated pairs
@@ -582,6 +584,23 @@ def show_portfolio_correlation(df, correlation_data, diversification_score, risk
                 """)
         else:
             st.info("Insufficient data for risk contribution analysis")
+    
+    # Add insights and recommendations
+    with st.expander("Correlation Analysis Insights", expanded=True):
+        st.markdown("""
+        ### Interpreting Your Correlation Analysis
+        
+        **Correlation Benefits:**
+        - **Lower Portfolio Volatility**: Uncorrelated assets reduce overall portfolio swings
+        - **Better Drawdown Protection**: When some assets fall, others may rise or stay stable
+        - **Enhanced Risk-Adjusted Returns**: Same returns with less risk means better risk/reward ratio
+        
+        **Optimization Strategies:**
+        1. **Reduce positions in highly correlated assets** - They provide less diversification benefit
+        2. **Increase allocation to negatively correlated assets** - They provide the best portfolio protection
+        3. **Balance risk contribution** - No single asset should dominate your portfolio risk
+        4. **Periodically rebalance** - Correlations change over time and need to be monitored
+        """)
 
 # New function to analyze portfolio allocation
 # Fix for the portfolio allocation analysis function
@@ -785,12 +804,13 @@ def show_performance_metrics(df, metrics, daily_data, trade_stats):
 
 # Function to display the drawdown analysis page
 def show_drawdown_analysis(daily_data):
-
+    st.header("Drawdown Analysis and Recovery")
+    
     st.markdown("""
     ### Understanding Drawdowns
     
     Drawdowns measure peak-to-trough declines in portfolio value and are crucial for risk assessment. 
-    This analysis provide insights into the magnitude, duration, and recovery patterns of those declines.
+    This analysis helps you understand not just the magnitude of drawdowns but their duration and recovery patterns.
     """)
     
     # Calculate drawdown periods and metrics
@@ -972,6 +992,32 @@ def show_drawdown_analysis(daily_data):
             """)
         else:
             st.info("No completed recovery periods available for analysis")
+    
+    # Drawdown insights
+    with st.expander("Drawdown Management Insights"):
+        st.markdown("""
+        ### Best Practices for Managing Drawdowns
+        
+        1. **Position Sizing Adjustment**
+           - Consider reducing position sizes when experiencing significant drawdowns
+           - Scale back gradually rather than stopping completely
+        
+        2. **Strategy Evaluation Thresholds**
+           - Set predefined drawdown thresholds for strategy review (e.g., 10%, 15%, 20%)
+           - Have a clear process for what gets reviewed at each threshold
+        
+        3. **Recovery Optimization**
+           - Identify which assets recover fastest and consider focusing on them during drawdowns
+           - Be cautious about "revenge trading" to recover losses quickly
+        
+        4. **Psychological Preparation**
+           - Know your historical drawdown patterns to prepare mentally
+           - Set realistic expectations about recovery periods
+        
+        5. **Correlation Analysis**
+           - During drawdowns, analyze if all assets are moving down together
+           - Look for negatively correlated assets to add to your portfolio
+        """)
 
 # Function to display the portfolio allocation page
 def show_portfolio_allocation(df, coin_metrics, allocation_metrics):
