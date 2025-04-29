@@ -1299,3 +1299,107 @@ else:
         - Risk contribution analysis
         - Identification of highly correlated asset pairs
         """)
+
+# PERFORMANCE METRICS CALCULATION METHODS
+
+# Cumulative Return
+# - Method: (Final Balance / Initial Balance - 1) * 100
+# - Uses the sum of all closedPnl values added to the initial capital
+
+# CAGR (Compound Annual Growth Rate)
+# - Method: (Math.pow(1 + total_return/100, 1/years) - 1) * 100
+# - Annualizes the return based on the period length in days
+
+# Volatility
+# - Method: Standard deviation of daily returns * sqrt(252) * 100
+# - Annualized by multiplying by sqrt of trading days in a year
+
+# Sharpe Ratio
+# - Method: (CAGR - Risk Free Rate) / Volatility
+# - Measures excess return per unit of risk
+
+# Sortino Ratio
+# - Method: (CAGR - Risk Free Rate) / Downside Deviation
+# - Only considers negative returns in the denominator
+# - Downside Deviation: Standard deviation of negative returns * sqrt(252) * 100
+
+# Drawdown
+# - Method: ((Current Balance / Peak Balance) - 1) * 100
+# - Tracks the decline from the highest peak balance
+
+# Calmar Ratio
+# - Method: CAGR / |Maximum Drawdown|
+# - Measures return relative to maximum drawdown risk
+
+# Omega Ratio
+# - Method: Count of positive returns / Count of negative returns
+# - Simple measure of win/loss frequency balance
+
+# Value at Risk (VaR)
+# - Method: 5th percentile of sorted daily returns
+# - Represents the worst expected loss with 95% confidence
+
+# Kelly Criterion
+# - Method: win_rate - ((1 - win_rate) / (avg_win / avg_loss))
+# - Optimal position sizing based on edge and win rate
+
+# DRAWDOWN ANALYSIS METHODS
+
+# Drawdown Identification
+# - Method: Track balance below peak and identify start/end points
+# - A drawdown begins when balance falls below peak and ends when a new peak is reached
+
+# Recovery Time
+# - Method: Duration from max drawdown point to drawdown end
+# - Measures how long it takes to recover from the worst point
+
+# Recovery Ratio
+# - Method: Recovery time / |Drawdown Percentage|
+# - Days needed to recover per percentage point of drawdown
+
+# PORTFOLIO ALLOCATION METHODS
+
+# Allocation Percentage
+# - Method: (Coin Total Exposure / Portfolio Total Exposure) * 100
+# - Based on absolute sum of notional values for each asset
+
+# ROI per Coin
+# - Method: (Coin Total PnL / Coin Total Exposure) * 100
+# - Measures return on capital allocated to each asset
+
+# HHI Concentration Index
+# - Method: Sum of squared allocation percentages (as decimals)
+# - Higher values indicate more concentration (1.0 = single asset)
+
+# Effective N
+# - Method: 1 / HHI
+# - Represents the effective number of assets accounting for concentration
+
+# CORRELATION ANALYSIS METHODS
+
+# Correlation Matrix
+# - Method: Standard Pearson correlation of daily PnL between assets
+# - Groups data by day and asset to create time series for comparison
+
+# Diversification Score
+# - Method: 100 * (1 - average absolute correlation)
+# - Higher scores indicate better diversification
+
+# Risk Contribution
+# - Method: Asset Allocation % * Asset Volatility
+# - Measures how much each asset contributes to portfolio risk
+# - Risk Contribution % = Asset Weighted Risk / Total Weighted Risk * 100
+
+# TRADING PROCESS ANALYSIS METHODS
+
+# Position Sizing Consistency
+# - Method: Standard Deviation / Mean of position sizes
+# - Lower values indicate more consistent position sizing
+
+# Win Rate by Direction
+# - Method: Winning trades with direction / Total trades with direction
+# - Shows which direction (buy/sell) is more successful
+
+# Trade Sequence Patterns
+# - Method: Conditional probabilities of trade directions
+# - Measures tendency to follow one type of trade with another
