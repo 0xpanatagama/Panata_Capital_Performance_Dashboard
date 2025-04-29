@@ -1303,103 +1303,126 @@ else:
 # PERFORMANCE METRICS CALCULATION METHODS
 
 # Cumulative Return
-# - Method: (Final Balance / Initial Balance - 1) * 100
-# - Uses the sum of all closedPnl values added to the initial capital
+# - Formula: R_cum = (B_final / B_initial - 1) × 100%
+#   where B_final = final balance, B_initial = initial balance
+# - Calculated from: B_final = B_initial + ∑ closedPnl
 
 # CAGR (Compound Annual Growth Rate)
-# - Method: (Math.pow(1 + total_return/100, 1/years) - 1) * 100
-# - Annualizes the return based on the period length in days
+# - Formula: CAGR = ((1 + R_cum/100)^(1/T) - 1) × 100%
+#   where T = time period in years (days/365)
+# - Annualizes return over the trading period
 
-# Volatility
-# - Method: Standard deviation of daily returns * sqrt(252) * 100
-# - Annualized by multiplying by sqrt of trading days in a year
+# Volatility (annualized)
+# - Formula: σ_ann = σ_daily × √252 × 100%
+#   where σ_daily = standard deviation of daily returns
+#   where r_daily = P&L / previous day balance
+# - Uses √252 for annualization assuming 252 trading days
 
 # Sharpe Ratio
-# - Method: (CAGR - Risk Free Rate) / Volatility
+# - Formula: S = (CAGR - r_f) / σ_ann
+#   where r_f = risk-free rate
 # - Measures excess return per unit of risk
 
 # Sortino Ratio
-# - Method: (CAGR - Risk Free Rate) / Downside Deviation
-# - Only considers negative returns in the denominator
-# - Downside Deviation: Standard deviation of negative returns * sqrt(252) * 100
+# - Formula: Sortino = (CAGR - r_f) / σ_down
+#   where σ_down = √(∑(min(r_i, 0)²) / n) × √252 × 100%
+# - Only penalizes downside volatility
 
 # Drawdown
-# - Method: ((Current Balance / Peak Balance) - 1) * 100
-# - Tracks the decline from the highest peak balance
+# - Formula: DD_t = (B_t / B_max - 1) × 100%
+#   where B_t = balance at time t, B_max = maximum balance up to time t
+# - Tracks decline from highest peak balance
+
+# Maximum Drawdown
+# - Formula: MDD = min(DD_t) for all t
+# - Represents worst peak-to-trough decline
 
 # Calmar Ratio
-# - Method: CAGR / |Maximum Drawdown|
+# - Formula: Calmar = CAGR / |MDD|
 # - Measures return relative to maximum drawdown risk
 
 # Omega Ratio
-# - Method: Count of positive returns / Count of negative returns
-# - Simple measure of win/loss frequency balance
+# - Formula: Ω = count(r_i > 0) / count(r_i < 0)
+#   where r_i = individual returns
+# - Ratio of winning to losing trades
 
-# Value at Risk (VaR)
-# - Method: 5th percentile of sorted daily returns
-# - Represents the worst expected loss with 95% confidence
+# Value at Risk (95% VaR)
+# - Formula: VaR_95 = percentile({r_i}, 5)
+#   where {r_i} = sorted daily returns
+# - 5th percentile of return distribution
 
 # Kelly Criterion
-# - Method: win_rate - ((1 - win_rate) / (avg_win / avg_loss))
-# - Optimal position sizing based on edge and win rate
+# - Formula: K% = W - ((1-W)/(R_W/R_L)) × 100%
+#   where W = win rate, R_W = average win, R_L = average loss (absolute)
+# - Optimal position sizing based on edge and risk/reward
 
 # DRAWDOWN ANALYSIS METHODS
 
-# Drawdown Identification
-# - Method: Track balance below peak and identify start/end points
-# - A drawdown begins when balance falls below peak and ends when a new peak is reached
-
 # Recovery Time
-# - Method: Duration from max drawdown point to drawdown end
-# - Measures how long it takes to recover from the worst point
+# - Formula: T_rec = T_end - T_max
+#   where T_end = drawdown end time, T_max = max drawdown time
+# - Time from maximum drawdown to recovery
 
 # Recovery Ratio
-# - Method: Recovery time / |Drawdown Percentage|
+# - Formula: RR = T_rec / |DD_max|
+#   where DD_max = maximum drawdown percentage for the period
 # - Days needed to recover per percentage point of drawdown
 
 # PORTFOLIO ALLOCATION METHODS
 
 # Allocation Percentage
-# - Method: (Coin Total Exposure / Portfolio Total Exposure) * 100
-# - Based on absolute sum of notional values for each asset
+# - Formula: A_i = (E_i / ∑E_j) × 100%
+#   where E_i = exposure for asset i, ∑E_j = total portfolio exposure
+# - Proportional capital allocation to each asset
 
-# ROI per Coin
-# - Method: (Coin Total PnL / Coin Total Exposure) * 100
-# - Measures return on capital allocated to each asset
+# ROI per Asset
+# - Formula: ROI_i = (P_i / E_i) × 100%
+#   where P_i = profit/loss for asset i, E_i = exposure for asset i
+# - Return on capital for each asset
 
-# HHI Concentration Index
-# - Method: Sum of squared allocation percentages (as decimals)
-# - Higher values indicate more concentration (1.0 = single asset)
+# Herfindahl-Hirschman Index (HHI)
+# - Formula: HHI = ∑(A_i/100)²
+#   where A_i = allocation percentage for asset i
+# - Measure of portfolio concentration (0-1 scale)
 
-# Effective N
-# - Method: 1 / HHI
-# - Represents the effective number of assets accounting for concentration
+# Effective Number of Assets
+# - Formula: N_eff = 1 / HHI
+# - Equivalent number of equally-weighted assets
 
 # CORRELATION ANALYSIS METHODS
 
 # Correlation Matrix
-# - Method: Standard Pearson correlation of daily PnL between assets
-# - Groups data by day and asset to create time series for comparison
+# - Formula: ρ_ij = cov(r_i, r_j) / (σ_i × σ_j)
+#   where r_i, r_j = daily returns for assets i and j
+#   σ_i, σ_j = standard deviations of daily returns
+# - Pearson correlation coefficient between asset returns
 
 # Diversification Score
-# - Method: 100 * (1 - average absolute correlation)
+# - Formula: D_score = 100 × (1 - (∑|ρ_ij|)/(n×(n-1)))
+#   where ρ_ij = correlation between assets i and j
+#   n = number of assets, i≠j
 # - Higher scores indicate better diversification
 
 # Risk Contribution
-# - Method: Asset Allocation % * Asset Volatility
-# - Measures how much each asset contributes to portfolio risk
-# - Risk Contribution % = Asset Weighted Risk / Total Weighted Risk * 100
+# - Formula: RC_i% = (A_i × σ_i) / ∑(A_j × σ_j) × 100%
+#   where A_i = allocation of asset i
+#   σ_i = volatility of asset i
+# - Percentage of total portfolio risk attributed to each asset
 
 # TRADING PROCESS ANALYSIS METHODS
 
-# Position Sizing Consistency
-# - Method: Standard Deviation / Mean of position sizes
+# Position Sizing Consistency (Coefficient of Variation)
+# - Formula: CV = σ_size / μ_size
+#   where σ_size = standard deviation of position sizes
+#   μ_size = mean position size
 # - Lower values indicate more consistent position sizing
 
 # Win Rate by Direction
-# - Method: Winning trades with direction / Total trades with direction
-# - Shows which direction (buy/sell) is more successful
+# - Formula: W_dir = count(P_dir > 0) / count(P_dir)
+#   where P_dir = trades with specific direction
+# - Success rate for each trade direction
 
-# Trade Sequence Patterns
-# - Method: Conditional probabilities of trade directions
-# - Measures tendency to follow one type of trade with another
+# Trade Sequence Conditional Probability
+# - Formula: P(dir_t | dir_{t-1}) = count(dir_t after dir_{t-1}) / count(dir_{t-1})
+#   where dir_t = direction at time t
+# - Probability of following one trade direction with another
