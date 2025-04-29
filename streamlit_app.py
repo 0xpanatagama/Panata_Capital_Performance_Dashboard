@@ -8,7 +8,7 @@ import math
 
 # Set page configuration
 st.set_page_config(
-    page_title="Trading Performance Dashboard",
+    page_title="Hyperliquid Trading Performance Dashboard",
     page_icon="📈",
     layout="wide"
 )
@@ -1273,7 +1273,7 @@ else:
     with feature_tabs[1]:
         st.subheader("Drawdown Analysis")
         st.markdown("""
-        Understand the depth and duration of your trading drawdowns:
+        Understand the depth and duration of trading drawdowns:
         - Interactive drawdown timeline visualization
         - Analysis of recovery periods and patterns
         - Drawdown distribution and frequency
@@ -1283,7 +1283,7 @@ else:
     with feature_tabs[2]:
         st.subheader("Portfolio Allocation")
         st.markdown("""
-        Analyze how your capital is distributed across different assets:
+        Analyze the distribution of capital across different assets:
         - Asset allocation visualization
         - Concentration risk metrics
         - Performance by asset (ROI)
@@ -1293,7 +1293,7 @@ else:
     with feature_tabs[3]:
         st.subheader("Correlation Analysis")
         st.markdown("""
-        Measure how your assets move in relation to each other:
+        Measure how assets move in relation to one another:
         - Correlation matrix visualization
         - Diversification score and metrics
         - Risk contribution analysis
