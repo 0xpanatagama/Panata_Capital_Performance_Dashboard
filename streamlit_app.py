@@ -8,13 +8,13 @@ import math
 
 # Set page configuration
 st.set_page_config(
-    page_title="Hyperliquid Trading Performance Dashboard",
+    page_title="Panata Capital Performance Dashboard",
     page_icon="📈",
     layout="wide"
 )
 
 # Add page title
-st.title("Trading Performance Dashboard")
+st.title("Panata Capital Performance Dashboard")
 
 # File uploader in the sidebar
 uploaded_file = st.sidebar.file_uploader("Upload your trading history CSV", type=["csv"])
